@@ -1,0 +1,25 @@
+name: argocd-bootstrap
+
+
+on:
+    push:
+        branches:
+            - main
+
+    workflow_dispatch:
+
+
+jobs:
+    argocd-bootstrap:
+        runs-on: self-hosted
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Set Current Context to Kind Cluster
+              run: |
+                kubectl config use-context kind-back-stack
+
+            - name: Getting nodes
+              run: |
+                kubectl get nodes
