@@ -26,7 +26,7 @@ jobs:
 
             - name: Provision the platform
               run: |
-                kubectl apply -n argocd --server-side --force-conflicts -k manifests/argocd/overlays/local-bootstrap
+                kubectl apply -n argocd --server-side --force-conflicts -k platform/manifests/argocd/overlays/local-bootstrap
 
             - name: Generate repo creds
               env:
