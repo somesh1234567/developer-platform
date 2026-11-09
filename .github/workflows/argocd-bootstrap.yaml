@@ -2,10 +2,6 @@ name: argocd-bootstrap
 
 
 on:
-    push:
-        branches:
-            - main
-
     workflow_dispatch:
 
 
@@ -23,3 +19,50 @@ jobs:
             - name: Getting nodes
               run: |
                 kubectl get nodes
+            
+            - name: Create ArgoCD Namespace
+              run: |
+                kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
+
+            - name: Provision the platform
+              run: |
+                kubectl apply -n argocd --server-side --force-conflicts -k manifests/argocd/overlays/local-bootstrap
+
+            - name: Generate repo creds
+              env:
+                ARGOCD_REPO_USERNAME: ${{ secrets.ARGOCD_REPO_USERNAME }}
+                ARGOCD_REPO_TOKEN: ${{ secrets.ARGOCD_REPO_TOKEN }}
+              run: |
+                kubectl apply -n argocd -f - <<EOF
+                apiVersion: v1
+                kind: Secret
+                metadata:
+                  name: platform-repo-creds
+                  labels:
+                    argocd.argoproj.io/secret-type: repo-creds
+                  namespace: argocd
+                stringData:
+                  type: git
+                  url: https://github.com/somesh1234567
+                  username: "${ARGOCD_REPO_USERNAME}"
+                  password: "${ARGOCD_REPO_TOKEN}"
+                EOF
+
+            - name: Generate Bootstrap Repo Secret
+              run: |
+                kubectl apply -n argocd -f - <<EOF
+                apiVersion: v1
+                kind: Secret
+                metadata:
+                  name: platform-repo
+                  labels:
+                    argocd.argoproj.io/secret-type: repository
+                  namespace: argocd
+                stringData:
+                  type: git
+                  url: https://github.com/somesh1234567/developer-platform
+                EOF
+
+            
+
+            
