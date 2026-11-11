@@ -12,7 +12,7 @@ spec:
   project: default
   sources:
     - repoURL: https://github.com/somesh1234567/developer-platform
-      path: apps
+      path: platform/apps
       targetRevision: main
       directory:
         recurse: true
