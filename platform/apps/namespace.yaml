@@ -1,21 +1,32 @@
-# filepath: /developer-platform/platform/manifests/applications/namespaces-app.yaml
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
-  name: namespaces
+  name: namespaces-appset
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-15"
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/somesh1234567/developer-platform
-    targetRevision: main
-    path: platform/namespaces
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  generators:
+    - git:
+        repoURL: https://github.com/somesh1234567/developer-platform
+        revision: ""
+        files:
+          - path: platform/namespaces/*.json
+  template:
+    metadata:
+      name: cluster-related-"{{name}}"
+      namespace: argocd
+      labels:
+        app.kubernetes.io/name: cluster-related-{{name}}
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/somesh1234567/developer-platform
+        targetRevision: main
+        path: platform/namespaces/resources
+      destination:
+        server: "{{server}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

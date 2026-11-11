@@ -1,0 +1,4 @@
+{
+  "name": "resource",
+  "server": "https://kubernetes.default.svc"
+}
