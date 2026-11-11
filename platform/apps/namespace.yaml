@@ -14,7 +14,7 @@ spec:
           - path: platform/namespaces/*.json
   template:
     metadata:
-      name: cluster-related-"{{name}}"
+      name: cluster-related-{{name}}
       namespace: argocd
       labels:
         app.kubernetes.io/name: cluster-related-{{name}}
