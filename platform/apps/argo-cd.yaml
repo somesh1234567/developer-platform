@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   labels:
     app.kubernetes.io/name: argocd-root
-    app.kubernetes.io/managed-by: Somesh Panigrahi
+    app.kubernetes.io/managed-by: Somesh_Panigrahi
   annotations:
     argocd.argoproj.io/sync-wave: "-5"
 spec:
