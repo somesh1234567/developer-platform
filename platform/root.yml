@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   labels:
     app.kubernetes.io/name: platform-root
-    app.kubernetes.io/managed-by: Somesh Panigrahi
+    app.kubernetes.io/managed-by: Somesh_Panigrahi
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
