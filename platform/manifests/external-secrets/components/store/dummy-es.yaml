@@ -1,0 +1,16 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: db-creds
+  namespace: default
+spec:
+  refreshInterval: 1m
+  secretStoreRef:
+    name: fake
+    kind: ClusterSecretStore
+  target:
+    name: db-creds        # the Kubernetes Secret ESO will create
+  data:
+    - secretKey: password
+      remoteRef:
+        key: /demo/db-password

@@ -63,6 +63,10 @@ jobs:
                   url: https://github.com/somesh1234567/developer-platform
                 EOF
 
+            - name: Deploy the root app
+              run: |
+                kubectl apply -n argocd -f platform/root.yml
+
             
 
             
