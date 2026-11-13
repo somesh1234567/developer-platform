@@ -4,7 +4,7 @@ metadata:
   name: namespaces-appset
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "-15"
+    argocd.argoproj.io/sync-wave: "-70"
 spec:
   generators:
     - git:

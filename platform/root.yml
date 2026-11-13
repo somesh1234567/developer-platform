@@ -16,6 +16,11 @@ spec:
       targetRevision: main
       directory:
         recurse: true
+  ignoreDifferences:
+    - group: argoproj.io
+      kind: Application
+      jsonPointers:
+        - /status
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

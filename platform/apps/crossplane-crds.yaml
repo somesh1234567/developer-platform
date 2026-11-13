@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crossplane-crds
+  namespace: argocd
+  finalizers: []
+  annotations:
+    argocd.argoproj.io/sync-wave: "-25"
+  labels:
+    app.kubernetes.io/name: crossplane-crds
+    app.kubernetes.io/managed-by: Somesh_Panigrahi
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/crossplane/crossplane.git
+    targetRevision: v2.4.2
+    path: cluster/crds
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+  revisionHistoryLimit: 2
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - ServerSideApply=true
+      - PruneLast=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
