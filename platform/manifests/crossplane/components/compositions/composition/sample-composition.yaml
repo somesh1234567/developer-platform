@@ -10,7 +10,7 @@ spec:
   pipeline:
     - step: render
       functionRef:
-        name: go-templating
+        name: function-go-templating
       input:
         apiVersion: gotemplating.fn.crossplane.io/v1beta1
         kind: GoTemplate
@@ -57,4 +57,4 @@ spec:
                   targetPort: {{ $xr.spec.port }}
     - step: ready
       functionRef:
-        name: auto-ready
+        name: function-auto-ready
