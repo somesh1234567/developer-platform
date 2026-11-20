@@ -4,3 +4,8 @@ namespace: crossplane-system
 
 resources:
   - ../../base
+
+components:
+  - ../../components/functions/built-ins
+  - ../../components/compositions/composition
+  - ../../components/crds/testing
