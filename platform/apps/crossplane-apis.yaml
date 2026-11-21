@@ -1,31 +1,39 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: crossplane-apis
   namespace: argocd
-  labels:
-    app.kubernetes.io/name: crossplane-apis
-    app.kubernetes.io/managed-by: Somesh_Panigrahi
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:
-  project: default
-  sources:
-    - repoURL: https://github.com/somesh1234567/developer-platform
-      path: platform/apis/*.json
-      targetRevision: main
-  ignoreDifferences:
-    - group: argoproj.io
-      kind: Application
-      jsonPointers:
-        - /status
-  destination:
-    server: "{{server}}"
-    namespace: crossplane-system
-  syncPolicy:
-    automated:
-      prune: false
-      selfHeal: true
-      allowEmpty: false
-    syncOptions:
-      - ServerSideApply=true
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: https://github.com/somesh1234567/developer-platform
+        revision: main
+        directories:
+          - path: platform/apis/*/*
+  template:
+    metadata:
+      name: '{{index .path.segments 2}}-{{index .path.segments 3}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/somesh1234567/developer-platform
+        targetRevision: main
+        path: '{{.path.path}}'
+      ignoreDifferences:
+        - group: argoproj.io
+          kind: Application
+          jsonPointers:
+            - /status
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: crossplane-system
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
