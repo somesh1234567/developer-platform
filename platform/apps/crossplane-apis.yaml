@@ -12,7 +12,7 @@ spec:
   project: default
   sources:
     - repoURL: https://github.com/somesh1234567/developer-platform
-      path: platform/apis/*
+      path: platform/apis/*.json
       targetRevision: main
   ignoreDifferences:
     - group: argoproj.io
@@ -20,7 +20,7 @@ spec:
       jsonPointers:
         - /status
   destination:
-    server: https://kubernetes.default.svc
+    server: "{{server}}"
     namespace: crossplane-system
   syncPolicy:
     automated:
