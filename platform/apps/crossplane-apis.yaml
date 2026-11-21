@@ -12,7 +12,7 @@ spec:
   project: default
   sources:
     - repoURL: https://github.com/somesh1234567/developer-platform
-      path: platform/apis
+      path: platform/apis/*
       targetRevision: main
   ignoreDifferences:
     - group: argoproj.io
