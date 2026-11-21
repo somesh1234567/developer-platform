@@ -7,5 +7,3 @@ resources:
 
 components:
   - ../../components/functions/built-ins
-  - ../../components/compositions/composition
-  - ../../components/crds/testing
