@@ -1,0 +1,36 @@
+.
+├── .github
+│   └── workflows
+│       └── argocd-bootstrap.yaml
+├── frontend
+├── platform
+│   ├── apis
+│   │   ├── aws
+│   │   ├── azure
+│   │   └── local
+│   ├── apps
+│   │   ├── argo-cd.yaml
+│   │   ├── crossplane-apis.yaml
+│   │   ├── crossplane-core.yaml
+│   │   ├── crossplane-crds.yaml
+│   │   ├── custom-resources.yaml
+│   │   ├── external-secrets.yaml
+│   │   └── namespace.yaml
+│   ├── examples
+│   │   ├── .gitkeep
+│   │   └── sample.yaml
+│   ├── manifests
+│   │   ├── argocd
+│   │   ├── crossplane
+│   │   ├── external-secrets
+│   │   ├── .DS_Store
+│   │   └── .gitkeep
+│   ├── namespaces
+│   │   ├── resources
+│   │   └── resources.json
+│   └── root.yml
+├── .gitignore
+├── README.md
+└── structure.txt
+
+17 directories, 17 files
